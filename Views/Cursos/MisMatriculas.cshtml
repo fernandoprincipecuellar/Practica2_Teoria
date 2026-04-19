@@ -1,0 +1,77 @@
+@model IEnumerable<Practica2_Teoria.Models.Matricula>
+
+@{
+    ViewData["Title"] = "Mis matrículas";
+}
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Exito"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<h1>Mis matrículas</h1>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No tienes matrículas registradas. <a asp-action="Index">Explorar cursos</a>
+    </div>
+}
+else
+{
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Curso</th>
+                <th>Código</th>
+                <th>Créditos</th>
+                <th>Horario</th>
+                <th>Fecha registro</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var matricula in Model)
+            {
+                <tr>
+                    <td>@matricula.Curso?.Nombre</td>
+                    <td>@matricula.Curso?.Codigo</td>
+                    <td>@matricula.Curso?.Creditos</td>
+                    <td>@matricula.Curso?.HorarioInicio.ToString("HH:mm") - @matricula.Curso?.HorarioFin.ToString("HH:mm")</td>
+                    <td>@matricula.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>
+                        @if (matricula.Estado == Practica2_Teoria.Models.Estado.Pendiente)
+                        {
+                            <span class="badge bg-warning text-dark">Pendiente</span>
+                        }
+                        else if (matricula.Estado == Practica2_Teoria.Models.Estado.Confirmada)
+                        {
+                            <span class="badge bg-success">Confirmada</span>
+                        }
+                        else if (matricula.Estado == Practica2_Teoria.Models.Estado.Cancelada)
+                        {
+                            <span class="badge bg-danger">Cancelada</span>
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-primary" asp-action="Details" asp-controller="Cursos" asp-route-id="@matricula.CursoId">Ver curso</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a class="btn btn-outline-secondary mt-3" asp-action="Index">Ir al catálogo</a>
