@@ -1,0 +1,44 @@
+@model IEnumerable<Practica2_Teoria.Models.Curso>
+
+@{
+    ViewData["Title"] = "Cursos";
+}
+
+<h1>Cursos</h1>
+<p>
+    <a class="btn btn-primary" asp-controller="Coordinador" asp-action="CursosCreate">Nuevo curso</a>
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Créditos</th>
+            <th>Cupo</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+            <th>Activo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var curso in Model)
+        {
+            <tr>
+                <td>@curso.Codigo</td>
+                <td>@curso.Nombre</td>
+                <td>@curso.Creditos</td>
+                <td>@curso.CupoMaximo</td>
+                <td>@curso.HorarioInicio.ToString("HH:mm")</td>
+                <td>@curso.HorarioFin.ToString("HH:mm")</td>
+                <td>@(curso.Activo ? "Sí" : "No")</td>
+                <td>
+                    <a class="btn btn-sm btn-secondary" asp-controller="Coordinador" asp-action="CursosEdit" asp-route-id="@curso.Id">Editar</a>
+                    <form asp-controller="Coordinador" asp-action="CursosDesactivar" asp-route-id="@curso.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-warning" @(curso.Activo ? "" : "disabled")>Desactivar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

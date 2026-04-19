@@ -33,6 +33,12 @@ builder.Services.AddSession(options =>
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Coordinador/AccessDenied";
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

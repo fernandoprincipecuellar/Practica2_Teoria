@@ -1,0 +1,10 @@
+@{
+    ViewData["Title"] = "Panel Coordinador";
+}
+
+<h1>Panel Coordinador</h1>
+<p>Bienvenido al panel de administración de coordinadores. Desde aquí puedes administrar cursos y matrículas.</p>
+<div class="list-group">
+    <a class="list-group-item list-group-item-action" asp-controller="Coordinador" asp-action="CursosIndex">Administrar Cursos</a>
+    <a class="list-group-item list-group-item-action" asp-controller="Coordinador" asp-action="MatriculasIndex">Administrar Matrículas</a>
+</div>
