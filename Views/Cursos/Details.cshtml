@@ -1,0 +1,30 @@
+@model Practica2_Teoria.Models.Curso
+
+@{
+    ViewData["Title"] = "Detalle del curso";
+    string returnUrl = Url.Action("Inscribir", "Cursos", new { id = Model.Id }) ?? string.Empty;
+}
+
+<h1>Detalle del curso</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title">@Model.Nombre</h3>
+        <p class="card-text"><strong>Código:</strong> @Model.Codigo</p>
+        <p class="card-text"><strong>Créditos:</strong> @Model.Creditos</p>
+        <p class="card-text"><strong>Cupo máximo:</strong> @Model.CupoMaximo</p>
+        <p class="card-text"><strong>Horario:</strong> @Model.HorarioInicio.ToString("HH:mm") - @Model.HorarioFin.ToString("HH:mm")</p>
+        <p class="card-text"><strong>Activo:</strong> @(Model.Activo ? "Sí" : "No")</p>
+    </div>
+</div>
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <a class="btn btn-primary" asp-action="Inscribir" asp-route-id="@Model.Id">Inscribirse</a>
+}
+else
+{
+    <a class="btn btn-primary" href="@Url.Page("/Account/Login", new { area = "Identity", returnUrl = returnUrl })">Inscribirse</a>
+}
+
+<a class="btn btn-secondary ms-2" asp-action="Index">Volver al catálogo</a>

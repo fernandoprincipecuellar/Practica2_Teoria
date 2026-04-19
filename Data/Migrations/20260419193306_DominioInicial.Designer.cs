@@ -11,7 +11,7 @@ using Practica2_Teoria.Data;
 namespace Practica2_Teoria.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260419190832_DominioInicial")]
+    [Migration("20260419193306_DominioInicial")]
     partial class DominioInicial
     {
         /// <inheritdoc />
