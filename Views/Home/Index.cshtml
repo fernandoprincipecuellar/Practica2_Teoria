@@ -1,8 +1,60 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero-landing py-5 mb-5">
+    <div class="container-lg py-5">
+        <div class="row align-items-center gx-5">
+            <div class="col-lg-6">
+                <span class="badge bg-white text-primary mb-3">Plataforma académica</span>
+                <h1 class="fw-bold mb-4">Gestiona cursos y matrículas con una experiencia moderna y profesional.</h1>
+                <p class="lead text-white opacity-85 mb-4">Encuentra los cursos activos, filtra por horario o créditos y administra el panel de coordinación desde un solo lugar.</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a class="btn btn-primary btn-lg" asp-controller="Cursos" asp-action="Index">Ver cursos</a>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1 mt-4 mt-lg-0">
+                <div class="card card-surface p-4 shadow-sm">
+                    <h3 class="h5 mb-3">Beneficios destacados</h3>
+                    <div class="d-flex gap-3 flex-column">
+                        <div class="feature-item p-3 rounded-3 bg-white shadow-sm">
+                            <strong>Interfaz clara</strong>
+                            <p class="mb-0 text-muted">Navega de forma sencilla con un diseño moderno y ordenado.</p>
+                        </div>
+                        <div class="feature-item p-3 rounded-3 bg-white shadow-sm">
+                            <strong>Control central</strong>
+                            <p class="mb-0 text-muted">Administra cursos y matrículas desde un único panel.</p>
+                        </div>
+                        <div class="feature-item p-3 rounded-3 bg-white shadow-sm">
+                            <strong>Filtros inteligentes</strong>
+                            <p class="mb-0 text-muted">Encuentra cursos rápidamente con búsqueda avanzada.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-lg mb-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card card-surface p-4 h-100">
+                <h5>Información rápida</h5>
+                <p class="text-muted">Tu plataforma ahora tiene un diseño más profesional, con mejor legibilidad y elementos más amigables.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-surface p-4 h-100">
+                <h5>Acceso rápido</h5>
+                <p class="text-muted">Dirígete rápidamente al catálogo de cursos o al panel de coordinador si tienes el rol adecuado.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-surface p-4 h-100">
+                <h5>Experiencia móvil</h5>
+                <p class="text-muted">El diseño responde bien en móviles y tablets gracias a las clases responsivas de Bootstrap.</p>
+            </div>
+        </div>
+    </div>
 </div>

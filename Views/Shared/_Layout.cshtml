@@ -11,50 +11,54 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Practica2_Teoria</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+            <div class="container-lg">
+                <a class="navbar-brand fw-bold text-primary" asp-area="" asp-controller="Home" asp-action="Index">Practica2_Teoria</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="collapse navbar-collapse" id="mainNavbar">
                     @{ 
                         var ultimoCursoId = Context.Session.GetInt32("UltimoCursoId");
                         var ultimoCursoNombre = Context.Session.GetString("UltimoCursoNombre");
                     }
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cursos" asp-action="Index">Cursos</a>
+                            <a class="nav-link" asp-area="" asp-controller="Cursos" asp-action="Index">Cursos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
                         </li>
                         @if (User.IsInRole("Coordinador"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Coordinador" asp-action="Index">Panel Coordinador</a>
+                                <a class="nav-link" asp-controller="Coordinador" asp-action="Index">Panel Coordinador</a>
                             </li>
                         }
                         @if (ultimoCursoId.HasValue && !string.IsNullOrEmpty(ultimoCursoNombre))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Cursos" asp-action="Details" asp-route-id="@ultimoCursoId">Volver a: @ultimoCursoNombre</a>
+                                <a class="nav-link" asp-controller="Cursos" asp-action="Details" asp-route-id="@ultimoCursoId">Volver a: @ultimoCursoNombre</a>
                             </li>
                         }
                     </ul>
-                    <partial name="_LoginPartial" />
+                    <div class="d-flex align-items-center">
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="site-content-wrapper">
+        <div class="container-lg py-4">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">

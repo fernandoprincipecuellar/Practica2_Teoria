@@ -2,9 +2,37 @@
     ViewData["Title"] = "Panel Coordinador";
 }
 
-<h1>Panel Coordinador</h1>
-<p>Bienvenido al panel de administración de coordinadores. Desde aquí puedes administrar cursos y matrículas.</p>
-<div class="list-group">
-    <a class="list-group-item list-group-item-action" asp-controller="Coordinador" asp-action="CursosIndex">Administrar Cursos</a>
-    <a class="list-group-item list-group-item-action" asp-controller="Coordinador" asp-action="MatriculasIndex">Administrar Matrículas</a>
+<div class="container-lg py-5 panel-page">
+    <div class="card card-surface border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <div class="d-sm-flex justify-content-between align-items-start mb-4">
+                <div>
+                    <h1 class="mb-2">Panel de coordinador</h1>
+                    <p class="text-muted mb-0">Administra cursos y matrículas desde un panel central con acceso rápido a las acciones más importantes.</p>
+                </div>
+                <span class="badge bg-white text-primary border status-badge">Acceso coordinador</span>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card card-panel-option h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Gestión de cursos</h5>
+                            <p class="card-text text-muted">Crea nuevos cursos, edita detalles y controla el estado de los cursos activos.</p>
+                            <a class="stretched-link" asp-controller="Coordinador" asp-action="CursosIndex">Ir a cursos</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-panel-option h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Matrículas</h5>
+                            <p class="card-text text-muted">Revisa las matrículas pendientes, confirma estudiantes y gestiona el estado de cada inscripción.</p>
+                            <a class="stretched-link" asp-controller="Coordinador" asp-action="MatriculasIndex">Ir a matrículas</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
