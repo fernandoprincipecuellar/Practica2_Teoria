@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using Practica2_Teoria.Data;
 using Practica2_Teoria.Models;
+using System.Text.Json;
 
 namespace Practica2_Teoria.Controllers;
 
@@ -11,11 +13,13 @@ public class CursosController : Controller
 {
     private readonly ApplicationDbContext _context;
     private readonly UserManager<IdentityUser> _userManager;
+    private readonly IDistributedCache _cache;
 
-    public CursosController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+    public CursosController(ApplicationDbContext context, UserManager<IdentityUser> userManager, IDistributedCache cache)
     {
         _context = context;
         _userManager = userManager;
+        _cache = cache;
     }
 
     public async Task<IActionResult> Index(string? nombre, int? creditosMin, int? creditosMax, TimeOnly? horarioInicio, TimeOnly? horarioFin)
@@ -30,11 +34,30 @@ public class CursosController : Controller
             return BadRequest("El horario de fin no puede ser anterior al horario de inicio.");
         }
 
-        var cursos = _context.Cursos.AsNoTracking().Where(c => c.Activo);
+        const string cacheKey = "cursos_activos";
+        List<Curso>? cursosActivos = null;
+        var cachedCursosJson = await _cache.GetStringAsync(cacheKey);
+
+        if (!string.IsNullOrWhiteSpace(cachedCursosJson))
+        {
+            cursosActivos = JsonSerializer.Deserialize<List<Curso>>(cachedCursosJson);
+        }
+
+        if (cursosActivos == null)
+        {
+            cursosActivos = await _context.Cursos.AsNoTracking().Where(c => c.Activo).ToListAsync();
+            var serializedCursos = JsonSerializer.Serialize(cursosActivos);
+            await _cache.SetStringAsync(cacheKey, serializedCursos, new DistributedCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60)
+            });
+        }
+
+        var cursos = cursosActivos.AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(nombre))
         {
-            cursos = cursos.Where(c => c.Nombre.Contains(nombre));
+            cursos = cursos.Where(c => c.Nombre.Contains(nombre, StringComparison.InvariantCultureIgnoreCase));
         }
 
         if (creditosMin.HasValue)
@@ -57,7 +80,7 @@ public class CursosController : Controller
             cursos = cursos.Where(c => c.HorarioFin <= horarioFin.Value);
         }
 
-        var lista = await cursos.OrderBy(c => c.Nombre).ToListAsync();
+        var lista = cursos.OrderBy(c => c.Nombre).ToList();
         return View(lista);
     }
 
@@ -68,6 +91,9 @@ public class CursosController : Controller
         {
             return NotFound();
         }
+
+        HttpContext.Session.SetInt32("UltimoCursoId", curso.Id);
+        HttpContext.Session.SetString("UltimoCursoNombre", curso.Nombre);
 
         return View(curso);
     }
