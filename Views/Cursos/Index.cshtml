@@ -10,58 +10,63 @@
     string? horarioFin = request.Query["horarioFin"];
 }
 
-<h1>Catálogo de cursos</h1>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start mb-4">
+    <div>
+        <h1 class="mb-1">Catálogo de cursos</h1>
+        <p class="text-muted">Explora todos los cursos disponibles y encuentra el que mejor se adapte a tus necesidades.</p>
+    </div>
+    <span class="badge bg-primary text-white py-2 px-3 align-self-start">@Model.Count() cursos encontrados</span>
+</div>
 
-<form method="get" class="row g-3 mb-4">
-    <div class="col-md-3">
-        <label class="form-label" for="nombre">Nombre</label>
-        <input class="form-control" type="text" name="nombre" id="nombre" value="@nombre" />
-    </div>
-    <div class="col-md-2">
-        <label class="form-label" for="creditosMin">Créditos mínimos</label>
-        <input class="form-control" type="number" min="0" name="creditosMin" id="creditosMin" value="@creditosMin" />
-    </div>
-    <div class="col-md-2">
-        <label class="form-label" for="creditosMax">Créditos máximos</label>
-        <input class="form-control" type="number" min="0" name="creditosMax" id="creditosMax" value="@creditosMax" />
-    </div>
-    <div class="col-md-2">
-        <label class="form-label" for="horarioInicio">Horario inicio</label>
-        <input class="form-control" type="time" name="horarioInicio" id="horarioInicio" value="@horarioInicio" />
-    </div>
-    <div class="col-md-2">
-        <label class="form-label" for="horarioFin">Horario fin</label>
-        <input class="form-control" type="time" name="horarioFin" id="horarioFin" value="@horarioFin" />
-    </div>
-    <div class="col-md-1 d-flex align-items-end">
-        <button type="submit" class="btn btn-primary w-100">Filtrar</button>
-    </div>
-</form>
+<div class="card card-surface mb-4 p-4">
+    <form method="get" class="row g-3 align-items-end">
+        <div class="col-lg-3 col-md-4">
+            <label class="form-label" for="nombre">Nombre</label>
+            <input class="form-control" type="text" name="nombre" id="nombre" value="@nombre" placeholder="Buscar curso" />
+        </div>
+        <div class="col-lg-2 col-md-4">
+            <label class="form-label" for="creditosMin">Créditos mínimos</label>
+            <input class="form-control" type="number" min="0" name="creditosMin" id="creditosMin" value="@creditosMin" />
+        </div>
+        <div class="col-lg-2 col-md-4">
+            <label class="form-label" for="creditosMax">Créditos máximos</label>
+            <input class="form-control" type="number" min="0" name="creditosMax" id="creditosMax" value="@creditosMax" />
+        </div>
+        <div class="col-lg-2 col-md-4">
+            <label class="form-label" for="horarioInicio">Horario inicio</label>
+            <input class="form-control" type="time" name="horarioInicio" id="horarioInicio" value="@horarioInicio" />
+        </div>
+        <div class="col-lg-2 col-md-4">
+            <label class="form-label" for="horarioFin">Horario fin</label>
+            <input class="form-control" type="time" name="horarioFin" id="horarioFin" value="@horarioFin" />
+        </div>
+        <div class="col-lg-1 col-md-4 d-grid">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </div>
+    </form>
+</div>
 
-<table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Código</th>
-            <th>Nombre</th>
-            <th>Créditos</th>
-            <th>Horario</th>
-            <th>Cupo disponible</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var curso in Model)
-{
-        <tr>
-            <td>@curso.Codigo</td>
-            <td>@curso.Nombre</td>
-            <td>@curso.Creditos</td>
-            <td>@curso.HorarioInicio.ToString("HH:mm") - @curso.HorarioFin.ToString("HH:mm")</td>
-            <td>@curso.CupoMaximo</td>
-            <td>
-                <a class="btn btn-sm btn-outline-primary" asp-action="Details" asp-route-id="@curso.Id">Ver detalle</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row g-4">
+    @foreach (var curso in Model)
+    {
+        <div class="col-lg-4 col-md-6">
+            <div class="course-card card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <span class="badge bg-primary">@curso.Codigo</span>
+                        <span class="badge bg-@((curso.Activo ? "success" : "secondary"))">@(curso.Activo ? "Activo" : "Inactivo")</span>
+                    </div>
+                    <h5 class="card-title">@curso.Nombre</h5>
+                    <p class="card-text text-muted mb-4">Horario: @curso.HorarioInicio.ToString("HH:mm") - @curso.HorarioFin.ToString("HH:mm")</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="mb-1"><strong>Créditos:</strong> @curso.Creditos</p>
+                            <p class="mb-0"><strong>Cupo:</strong> @curso.CupoMaximo</p>
+                        </div>
+                        <a class="btn btn-sm btn-outline-primary" asp-action="Details" asp-route-id="@curso.Id">Ver detalle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

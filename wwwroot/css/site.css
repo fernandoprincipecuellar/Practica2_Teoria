@@ -1,31 +1,238 @@
+:root {
+  color-scheme: light;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  color: #102a43;
+  background-color: #eef2ff;
+}
+
 html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
+  font-size: 15px;
+  scroll-behavior: smooth;
   position: relative;
   min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f7f9ff 0%, #eef3fb 100%);
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+.site-content-wrapper {
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
+}
+
+.navbar {
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.navbar-brand {
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
+.nav-link {
+  color: #334155 !important;
+  font-weight: 500;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #0b5ed7 !important;
+}
+
+.hero-landing {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(236, 72, 153, 0.18),
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(59, 130, 246, 0.15),
+      transparent 18%
+    ),
+    linear-gradient(135deg, #7c3aed 0%, #8b5cf6 45%, #a78bfa 100%);
+  border-radius: 1.75rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  padding: 3.5rem 2rem;
+}
+
+.hero-landing::before {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  top: -50px;
+  right: -50px;
+  box-shadow: 0 0 60px rgba(255, 255, 255, 0.18);
+}
+
+.hero-landing h1 {
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  line-height: 1.02;
+}
+
+.hero-landing p {
+  font-size: 1.05rem;
+  max-width: 680px;
+}
+
+.feature-item {
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.btn-primary {
+  background: #ec4899;
+  border-color: #ec4899;
+  box-shadow: 0 18px 40px rgba(236, 72, 153, 0.25);
+}
+
+.btn-primary:hover {
+  background: #db2777;
+  border-color: #db2777;
+}
+
+.btn-outline-light {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.card-surface {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 1.25rem;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+}
+
+.panel-page {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.panel-card-option {
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.96);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.panel-card-option:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.1);
+}
+
+.panel-card-option .card-title {
+  color: #3730a3;
+}
+
+.panel-card-option .card-text {
+  color: #475569;
+}
+
+.panel-card-header {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  color: white;
+  border-bottom: none;
+}
+
+.status-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.course-card {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 1.25rem;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+}
+
+.course-card .card-body {
+  padding: 1.5rem;
+}
+
+.course-card h5 {
+  font-weight: 700;
+}
+
+.table-custom {
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+
+.table-custom thead {
+  background: #f8fafc;
+}
+
+.table-custom th,
+.table-custom td {
+  vertical-align: middle;
+}
+
+.table-custom tbody tr:hover {
+  background: #f8fafc;
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+.form-control {
+  border-radius: 0.85rem;
+}
+
+footer.footer {
+  background: #0f172a;
+  color: #cbd5e1;
+  padding: 1.5rem 0;
+}
+
+footer.footer a {
+  color: #93c5fd;
+}
+
+@media (max-width: 991.98px) {
+  .hero-landing h1 {
+    font-size: 2.5rem;
+  }
+}
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);
   text-align: end;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
   text-align: start;
 }

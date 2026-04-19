@@ -4,53 +4,81 @@
     ViewData["Title"] = "Editar Curso";
 }
 
-<h1>Editar Curso</h1>
+<div class="container-lg py-5 panel-page">
+    <div class="card card-surface border-0 shadow-sm p-4">
+        <div class="mb-4">
+            <h1 class="mb-2">Editar curso</h1>
+            <p class="text-muted">Actualiza los detalles del curso para mantener el catálogo al día.</p>
+        </div>
 
-<form asp-controller="Coordinador" asp-action="CursosEdit" asp-route-id="@Model.Id" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input asp-for="Id" type="hidden" />
+        <form asp-controller="Coordinador" asp-action="CursosEdit" asp-route-id="@Model.Id" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" type="hidden" />
 
-    <div class="mb-3">
-        <label asp-for="Codigo" class="form-label"></label>
-        <input asp-for="Codigo" class="form-control" />
-        <span asp-validation-for="Codigo" class="text-danger"></span>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="Codigo" class="form-label"></label>
+                        <input asp-for="Codigo" class="form-control" />
+                        <span asp-validation-for="Codigo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="Nombre" class="form-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label asp-for="Creditos" class="form-label"></label>
+                        <input asp-for="Creditos" class="form-control" type="number" min="1" />
+                        <span asp-validation-for="Creditos" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label asp-for="CupoMaximo" class="form-label"></label>
+                        <input asp-for="CupoMaximo" class="form-control" type="number" min="1" />
+                        <span asp-validation-for="CupoMaximo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label asp-for="Activo" class="form-label d-block"></label>
+                        <div class="form-check form-switch">
+                            <input asp-for="Activo" class="form-check-input" />
+                            <label asp-for="Activo" class="form-check-label"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="HorarioInicio" class="form-label"></label>
+                        <input asp-for="HorarioInicio" class="form-control" type="time" />
+                        <span asp-validation-for="HorarioInicio" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="HorarioFin" class="form-label"></label>
+                        <input asp-for="HorarioFin" class="form-control" type="time" />
+                        <span asp-validation-for="HorarioFin" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                <a asp-controller="Coordinador" asp-action="CursosIndex" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+        </form>
     </div>
-
-    <div class="mb-3">
-        <label asp-for="Nombre" class="form-label"></label>
-        <input asp-for="Nombre" class="form-control" />
-        <span asp-validation-for="Nombre" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Creditos" class="form-label"></label>
-        <input asp-for="Creditos" class="form-control" type="number" min="1" />
-        <span asp-validation-for="Creditos" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="CupoMaximo" class="form-label"></label>
-        <input asp-for="CupoMaximo" class="form-control" type="number" min="1" />
-        <span asp-validation-for="CupoMaximo" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="HorarioInicio" class="form-label"></label>
-        <input asp-for="HorarioInicio" class="form-control" type="time" />
-        <span asp-validation-for="HorarioInicio" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="HorarioFin" class="form-label"></label>
-        <input asp-for="HorarioFin" class="form-control" type="time" />
-        <span asp-validation-for="HorarioFin" class="text-danger"></span>
-    </div>
-
-    <div class="form-check mb-3">
-        <input asp-for="Activo" class="form-check-input" />
-        <label asp-for="Activo" class="form-check-label"></label>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-    <a asp-controller="Coordinador" asp-action="CursosIndex" class="btn btn-secondary">Cancelar</a>
-</form>
+</div>

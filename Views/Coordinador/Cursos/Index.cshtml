@@ -4,41 +4,51 @@
     ViewData["Title"] = "Cursos";
 }
 
-<h1>Cursos</h1>
-<p>
-    <a class="btn btn-primary" asp-controller="Coordinador" asp-action="CursosCreate">Nuevo curso</a>
-</p>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Código</th>
-            <th>Nombre</th>
-            <th>Créditos</th>
-            <th>Cupo</th>
-            <th>Inicio</th>
-            <th>Fin</th>
-            <th>Activo</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var curso in Model)
-        {
-            <tr>
-                <td>@curso.Codigo</td>
-                <td>@curso.Nombre</td>
-                <td>@curso.Creditos</td>
-                <td>@curso.CupoMaximo</td>
-                <td>@curso.HorarioInicio.ToString("HH:mm")</td>
-                <td>@curso.HorarioFin.ToString("HH:mm")</td>
-                <td>@(curso.Activo ? "Sí" : "No")</td>
-                <td>
-                    <a class="btn btn-sm btn-secondary" asp-controller="Coordinador" asp-action="CursosEdit" asp-route-id="@curso.Id">Editar</a>
-                    <form asp-controller="Coordinador" asp-action="CursosDesactivar" asp-route-id="@curso.Id" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-sm btn-warning" @(curso.Activo ? "" : "disabled")>Desactivar</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container-lg py-5 panel-page">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3 mb-4">
+        <div>
+            <h1 class="mb-2">Cursos</h1>
+            <p class="text-muted">Gestiona el catálogo de cursos disponibles y modifica horarios, cupos y estado con facilidad.</p>
+        </div>
+        <a class="btn btn-primary btn-lg" asp-controller="Coordinador" asp-action="CursosCreate">Nuevo curso</a>
+    </div>
+
+    <div class="card card-surface border-0 shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-striped table-custom mb-0">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Créditos</th>
+                        <th>Cupo</th>
+                        <th>Inicio</th>
+                        <th>Fin</th>
+                        <th>Activo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var curso in Model)
+                    {
+                        <tr>
+                            <td>@curso.Codigo</td>
+                            <td>@curso.Nombre</td>
+                            <td>@curso.Creditos</td>
+                            <td>@curso.CupoMaximo</td>
+                            <td>@curso.HorarioInicio.ToString("HH:mm")</td>
+                            <td>@curso.HorarioFin.ToString("HH:mm")</td>
+                            <td>@(curso.Activo ? "Sí" : "No")</td>
+                            <td>
+                                <a class="btn btn-sm btn-secondary" asp-controller="Coordinador" asp-action="CursosEdit" asp-route-id="@curso.Id">Editar</a>
+                                <form asp-controller="Coordinador" asp-action="CursosDesactivar" asp-route-id="@curso.Id" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-warning" @(curso.Activo ? "" : "disabled")>Desactivar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

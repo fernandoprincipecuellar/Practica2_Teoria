@@ -4,56 +4,63 @@
     ViewData["Title"] = "Matrículas";
 }
 
-<h1>Matrículas</h1>
-
-@foreach (var grupo in Model.GroupBy(m => m.Curso?.Nombre ?? "Sin curso"))
-{
-    <div class="card mb-4">
-        <div class="card-header">
-            <strong>@grupo.Key</strong>
-        </div>
-        <div class="card-body p-0">
-            <table class="table mb-0">
-                <thead>
-                    <tr>
-                        <th>Email</th>
-                        <th>Fecha</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var matricula in grupo)
-                    {
-                        <tr>
-                            <td>@matricula.Usuario?.Email</td>
-                            <td>@matricula.FechaRegistro.ToString("G")</td>
-                            <td>@matricula.Estado</td>
-                            <td>
-                                @if (matricula.Estado == Practica2_Teoria.Models.Estado.Pendiente)
-                                {
-                                    <form asp-controller="Coordinador" asp-action="MatriculasConfirmar" asp-route-id="@matricula.Id" method="post" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-success">Confirmar</button>
-                                    </form>
-                                    <form asp-controller="Coordinador" asp-action="MatriculasCancelar" asp-route-id="@matricula.Id" method="post" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-danger">Cancelar</button>
-                                    </form>
-                                }
-                                else if (matricula.Estado == Practica2_Teoria.Models.Estado.Confirmada)
-                                {
-                                    <form asp-controller="Coordinador" asp-action="MatriculasCancelar" asp-route-id="@matricula.Id" method="post" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-danger">Cancelar</button>
-                                    </form>
-                                }
-                                else
-                                {
-                                    <span class="text-muted">Sin acciones</span>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+<div class="container-lg py-5 panel-page">
+    <div class="mb-4">
+        <h1 class="mb-2">Matrículas</h1>
+        <p class="text-muted">Revisa los registros por curso y toma acciones rápidas sobre matrículas pendientes o confirmadas.</p>
     </div>
-}
+
+    @foreach (var grupo in Model.GroupBy(m => m.Curso?.Nombre ?? "Sin curso"))
+    {
+        <div class="card card-surface border-0 shadow-sm mb-4">
+            <div class="card-header panel-card-header">
+                <strong>@grupo.Key</strong>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-custom mb-0">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var matricula in grupo)
+                            {
+                                <tr>
+                                    <td>@matricula.Usuario?.Email</td>
+                                    <td>@matricula.FechaRegistro.ToString("G")</td>
+                                    <td>@matricula.Estado</td>
+                                    <td>
+                                        @if (matricula.Estado == Practica2_Teoria.Models.Estado.Pendiente)
+                                        {
+                                            <form asp-controller="Coordinador" asp-action="MatriculasConfirmar" asp-route-id="@matricula.Id" method="post" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-success">Confirmar</button>
+                                            </form>
+                                            <form asp-controller="Coordinador" asp-action="MatriculasCancelar" asp-route-id="@matricula.Id" method="post" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-danger">Cancelar</button>
+                                            </form>
+                                        }
+                                        else if (matricula.Estado == Practica2_Teoria.Models.Estado.Confirmada)
+                                        {
+                                            <form asp-controller="Coordinador" asp-action="MatriculasCancelar" asp-route-id="@matricula.Id" method="post" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-danger">Cancelar</button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Sin acciones</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>
