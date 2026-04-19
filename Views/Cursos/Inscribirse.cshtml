@@ -1,0 +1,43 @@
+@model Practica2_Teoria.Models.Curso
+
+@{
+    ViewData["Title"] = "Inscribirse - " + Model.Nombre;
+}
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Exito"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<h1>Confirmar inscripción</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title">@Model.Nombre</h3>
+        <p class="card-text"><strong>Código:</strong> @Model.Codigo</p>
+        <p class="card-text"><strong>Créditos:</strong> @Model.Creditos</p>
+        <p class="card-text"><strong>Cupo máximo:</strong> @Model.CupoMaximo</p>
+        <p class="card-text"><strong>Horario:</strong> @Model.HorarioInicio.ToString("HH:mm") - @Model.HorarioFin.ToString("HH:mm")</p>
+    </div>
+</div>
+
+<form method="post" asp-action="Inscribirse" asp-route-id="@Model.Id">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <button type="submit" class="btn btn-success">Confirmar inscripción</button>
+    <a class="btn btn-secondary ms-2" asp-action="Details" asp-route-id="@Model.Id">Cancelar</a>
+</form>
+
+<hr />
+
+<a class="btn btn-outline-secondary mt-3" asp-action="Index">Volver al catálogo</a>

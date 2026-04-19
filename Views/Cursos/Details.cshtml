@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Detalle del curso";
-    string returnUrl = Url.Action("Inscribir", "Cursos", new { id = Model.Id }) ?? string.Empty;
 }
 
 <h1>Detalle del curso</h1>
@@ -20,11 +19,11 @@
 
 @if (User.Identity?.IsAuthenticated == true)
 {
-    <a class="btn btn-primary" asp-action="Inscribir" asp-route-id="@Model.Id">Inscribirse</a>
+    <a class="btn btn-primary" asp-action="Inscribirse" asp-route-id="@Model.Id">Inscribirse</a>
 }
 else
 {
-    <a class="btn btn-primary" href="@Url.Page("/Account/Login", new { area = "Identity", returnUrl = returnUrl })">Inscribirse</a>
+    <a class="btn btn-primary" href="@Url.Page("/Account/Login", new { area = "Identity", returnUrl = Url.Action("Inscribirse", new { id = Model.Id }) })">Inscribirse</a>
 }
 
 <a class="btn btn-secondary ms-2" asp-action="Index">Volver al catálogo</a>
